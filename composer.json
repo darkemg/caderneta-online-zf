@@ -1,0 +1,16 @@
+{
+    "name": "darkemg/caderneta-online-zf",
+    "description": "Sistema de controle de cadernetas de crédito para pequenos comércios",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0",
+        "darkemg/numenor": "dev-master",
+        "zendframework/zendframework": "~2.5",
+        "zf-commons/zfc-twig": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Admin": "module/Admin/src/"
+        }
+    }
+}
