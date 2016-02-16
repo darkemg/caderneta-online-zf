@@ -9,8 +9,9 @@
         "zf-commons/zfc-twig": "dev-master"
     },
     "autoload": {
-        "psr-4": {
-            "Admin": "module/Admin/src/"
+        "psr-0": {
+            "Admin": "module/Admin/src/",
+            "Application": "module/Application/src"
         }
     }
 }

@@ -1,33 +1,47 @@
 <?php
+namespace Admin;
 return [
 	'controllers' => [
 		'invokables' => [
-			'Admin\Controller\Admin' => 'Admin\Controller\AdminController',
-			'Admin\Controller\Login' => 'Admin\Controller\LoginController'
-		],
+			'Admin\Controller\Admin' => Controller\AdminController::class,
+			'Admin\Controller\Login' => Controller\LoginController::class
+		]
 	],
 	'router' => [
 		'routes' => [
 			'admin' => [
 				'type' => 'Zend\Mvc\Router\Http\Literal',
 				'options' => [
-					'route' => '/admin'
+					'route' => '/admin',
+					'defaults' => [
+						'controller' => 'Admin\Controller\Admin',
+						'action' => 'index'
+					]
 				],
-				'defaults' => [
-					'controller' => 'Admin\Controller\Admin',
-					'action' => 'index'
+				'may_terminate' => true,
+				'child_routes' => [
+					'login' => [
+						'type' => 'Zend\Mvc\Router\Http\Literal',
+						'options' => [
+							'route' => '/login',
+							'defaults' => [
+								'controller' => 'Admin\Controller\Login',
+								'action' => 'login'
+							]
+						]
+					],
+					'autenticar' => [
+						'type' => 'Zend\Mvc\Router\Http\Literal',
+						'options' => [
+							'route' => '/autenticar',
+							'defaults' => [
+								'controller' => 'Admin\Controller\Login',
+								'action' => 'autenticar'
+							]
+						]
+					]
 				]
 			],
-			'login' => [
-				'type' => 'Zend\Mvc\Router\Http\Literal',
-				'options' => [
-					'route' => '/admin/login'
-				],
-				'defaults' => [
-					'controller' => 'Admin\Controller\Login',
-					'action' => 'login'
-				]
-			]
 		]	
 	],
 	'view_manager' => [

@@ -6,6 +6,11 @@ use Zend\View\Model\ViewModel;
 class LoginController extends AbstractActionController {
 	
 	public function loginAction() {
-		echo "login controller";
+		
+	}
+	
+	public function autenticarAction() {
+		echo "does the login and redirects";
+		die();
 	}
 }
