@@ -3,6 +3,7 @@ CADERNETAONLINE.Admin = {
     'Login': {},
     'init': function () {
         "use strict";
+        CADERNETAONLINE.init();
         console.log('Módulo Admin carregado.');
     }
 };

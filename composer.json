@@ -4,7 +4,7 @@
     "license": "MIT",
     "require": {
         "php": ">=7.0",
-        "darkemg/numenor": "dev-master",
+        "darkemg/numenor": "~1.0",
         "zendframework/zendframework": "~2.5",
         "zf-commons/zfc-twig": "dev-master"
     },

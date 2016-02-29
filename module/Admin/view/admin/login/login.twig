@@ -5,6 +5,11 @@
 <!-- end: CSS -->
 {% endblock %}
 
+{% block scriptHead %}
+<!-- begin: HEAD JS -->
+<!-- end: HEAD JS -->
+{% endblock scriptHead %}
+
 {% block content %}
 <div class="container-fluid-full">
 	<div class="row-fluid">				
@@ -44,3 +49,9 @@
 	</div><!--/.fluid-container-->
 </div><!--/fluid-row-->
 {%  endblock %}
+
+{% block scriptBody %}
+<!-- begin: BODY JS -->
+{{ jsBody|raw }}
+<!-- end: BODY JS -->
+{% endblock scriptBody %}

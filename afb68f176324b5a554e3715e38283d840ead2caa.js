@@ -1,1 +1,0 @@
-js/caderneta-online.js;js/admin/admin.js

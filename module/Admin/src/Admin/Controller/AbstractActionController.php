@@ -10,7 +10,8 @@ use Zend\Mvc\Controller\AbstractActionController as ZendAbstractActionController
 abstract class AbstractActionController extends ZendAbstractActionController {
 	
 	protected $controleCss;
-	protected $controleJs;
+	protected $controleJsHead;
+	protected $controleJsBody;
 	
 	protected function inicializarControleCss() {
 		$arrayWrapper = new ArrayWrapper();
@@ -32,7 +33,7 @@ abstract class AbstractActionController extends ZendAbstractActionController {
 		$arrayWrapper = new ArrayWrapper();
 		$stringWrapper = new StringWrapper();
 		$minificador = new MinificadorJs();
-		$this->controleJs = new ControleJavascript(
+		$this->controleJsHead = new ControleJavascript(
 			$arrayWrapper,
 			$stringWrapper,
 			getcwd() . '/public/js/admin/min/',
@@ -40,7 +41,8 @@ abstract class AbstractActionController extends ZendAbstractActionController {
 				->get('ViewHelperManager')
 				->get('ServerUrl')
 				->__invoke('') . '/js/admin/min/');
-		$this->controleJs
+		$this->controleJsHead
 			->setMinificadorJs($minificador);
+		$this->controleJsBody = clone $this->controleJsHead;
 	}
 }
