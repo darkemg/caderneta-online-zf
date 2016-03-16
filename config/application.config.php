@@ -8,8 +8,13 @@
 return [
     // This should be an array of module namespaces used in the application.
     'modules' => [
+    	// Doctrine
+    	'DoctrineModule',
+    	'DoctrineORMModule',
+    	// Módulos da aplicação
     	'Admin',
     	'Application',
+    	// Twig para Zend
     	'ZfcTwig'
     ],
 

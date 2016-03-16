@@ -10,5 +10,7 @@ nbproject
 vendor
 composer.phar
 # Meus diretórios
+public/css/*/min
+public/js/*/min
 public/skins/*
 logs

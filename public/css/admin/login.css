@@ -1,0 +1,14 @@
+body {
+	background: url(../../skins/janux/img/bg-login.jpg) !important; 
+}
+
+.login-box h2,
+.login-box h3 {
+	font-family: "Open Sans", sans-serif !important;
+}
+
+.login-validate-error {
+	padding-right: 15px;
+	text-align: right;
+	color: #b94a48;
+}
