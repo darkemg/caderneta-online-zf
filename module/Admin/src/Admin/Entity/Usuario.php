@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Utils\Doctrine\Ativo;
 use Utils\Doctrine\Id;
-use Utils\Doctrine\SoftDeletable;
+use Utils\Doctrine\SoftDeleteable;
 use Utils\Doctrine\Timestampable;
 /** 
  * @ORM\Entity 
@@ -25,7 +25,7 @@ use Utils\Doctrine\Timestampable;
  */
 class Usuario {
 	
-	use Id, Timestampable, Ativo, SoftDeletable;
+	use Id, Timestampable, Ativo, SoftDeleteableable;
 	
 	/**
 	 * Nome do usuário.

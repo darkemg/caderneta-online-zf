@@ -11,9 +11,6 @@
  * file.
  */
 return [
-	'numenor' => [
-		'comportamento_padrao' => Numenor\Html\Controle::COMPORTAMENTO_PADRAO_PROD
-	],
 	'zfctwig' => [
     	'environment_options' => [
        		'cache' => __DIR__ . '/../../data/cache/templates',
