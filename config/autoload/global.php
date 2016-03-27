@@ -10,8 +10,10 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
-
-return [	
+return [
+	'numenor' => [
+		'comportamento_padrao' => Numenor\Html\Controle::COMPORTAMENTO_PADRAO_PROD
+	],
 	'zfctwig' => [
     	'environment_options' => [
        		'cache' => __DIR__ . '/../../data/cache/templates',

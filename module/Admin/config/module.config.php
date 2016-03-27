@@ -20,6 +20,26 @@ return [
 				],
 				'may_terminate' => true,
 				'child_routes' => [
+					'autenticar' => [
+						'type' => 'Zend\Mvc\Router\Http\Literal',
+						'options' => [
+							'route' => '/autenticar',
+							'defaults' => [
+								'controller' => 'Admin\Controller\Login',
+								'action' => 'autenticar'
+							]
+						]
+					],
+					'solicitar-senha' => [
+						'type' => 'Zend\Mvc\Router\Http\Literal',
+						'options' => [
+							'route' => '/solicitar-senha',
+							'defaults' => [
+								'controller' => 'Admin\Controller\Login',
+								'action' => 'solicitar-senha'
+							]
+						]
+					],
 					'login' => [
 						'type' => 'Zend\Mvc\Router\Http\Literal',
 						'options' => [
@@ -30,16 +50,6 @@ return [
 							]
 						]
 					],
-					'autenticar' => [
-						'type' => 'Zend\Mvc\Router\Http\Literal',
-						'options' => [
-							'route' => '/autenticar',
-							'defaults' => [
-								'controller' => 'Admin\Controller\Login',
-								'action' => 'autenticar'
-							]
-						]
-					]
 				]
 			],
 		]	
@@ -57,11 +67,15 @@ return [
 			__NAMESPACE__ . '_driver' => [
 				'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
 				'cache' => 'array',
-				'paths' => [__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity']
+				'paths' => [
+					__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity',
+					__DIR__ . '/../src/' . __NAMESPACE__ . '/Model'
+				]
 			],
 			'orm_default' => [
 				'drivers' => [
-					__NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+					__NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
+					__NAMESPACE__ . '\Model' => __NAMESPACE__ . '_driver'
 				]
 			]
 		]

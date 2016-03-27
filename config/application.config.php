@@ -5,19 +5,35 @@
  * @see http://framework.zend.com/manual/current/en/tutorials/config.advanced.html#environment-specific-system-configuration
  * @see http://framework.zend.com/manual/current/en/tutorials/config.advanced.html#environment-specific-application-configuration
  */
+$env = getenv('APPLICATION_ENV') ?: 'production';
+// Lista de módulos gerais
+$modules = [
+	// Doctrine
+	'DoctrineModule',
+	'DoctrineORMModule',
+	// Módulos da aplicação
+	'Admin',
+	'Application',
+	// Twig para Zend
+	'ZfcTwig'
+];
+// Módulos específicos do ambiente de desenvolvimento
+switch ($env) {
+	case 'development':
+		$modules[] = 'ZendDeveloperTools';
+		$modules[] = 'OcraServiceManager';
+		$modules[] = 'SanSessionToolbar';
+		$modules[] = 'ZfSnapEventDebugger';
+		$modules[] = 'Jhu\ZdtLoggerModule';
+		break;
+	case 'production':
+	default:
+		break;
+}
+// Módulos carregados em ambiente de produção
 return [
     // This should be an array of module namespaces used in the application.
-    'modules' => [
-    	// Doctrine
-    	'DoctrineModule',
-    	'DoctrineORMModule',
-    	// Módulos da aplicação
-    	'Admin',
-    	'Application',
-    	// Twig para Zend
-    	'ZfcTwig'
-    ],
-
+    'modules' => $modules,
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => [
         // This should be an array of paths in which modules reside.
@@ -26,16 +42,14 @@ return [
         // Module class.
         'module_paths' => [
             './module',
-            './vendor',
+            './vendor'
         ],
-
         // An array of paths from which to glob configuration files after
         // modules are loaded. These effectively override configuration
         // provided by modules themselves. Paths may use GLOB_BRACE notation.
         'config_glob_paths' => [
             'config/autoload/{{,*.}global,{,*.}local}.php',
         ],
-
         // Whether or not to enable a configuration cache.
         // If enabled, the merged configuration will be cached and used in
         // subsequent requests.
@@ -60,7 +74,6 @@ return [
         // that weren't loaded.
         // 'check_dependencies' => true,
     ],
-
     // Used to create an own service manager. May contain one or more child arrays.
     //'service_listener_options' => array(
     //     array(
@@ -70,7 +83,6 @@ return [
     //         'method'          => $stringRequiredMethodName,
     //     ),
     // ),
-
    // Initial configuration with which to seed the ServiceManager.
    // Should be compatible with Zend\ServiceManager\Config.
    // 'service_manager' => array(),

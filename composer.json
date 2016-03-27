@@ -5,14 +5,23 @@
     "require": {
         "php": ">=7.0",
         "darkemg/numenor": "~2.1",
-        "doctrine/orm": "*",
+        "doctrine/doctrine-orm-module": "*",
+        "gedmo/doctrine-extensions": "~2.4",
         "zendframework/zendframework": "~2.5",
         "zf-commons/zfc-twig": "dev-master"
     },
+    "require-dev": {
+        "zendframework/zend-developer-tools": "dev-master",
+        "ocramius/ocra-service-manager": "dev-master",
+        "san/san-session-toolbar": "0.*",
+        "snapshotpl/zf-snap-event-debugger": "1.*",
+        "jhuet/zdt-logger-module": "dev-master"
+    },
     "autoload": {
         "psr-0": {
-            "Admin": "module/Admin/src/",
-            "Application": "module/Application/src"
+            "Admin": "module/Admin/src",
+            "Application": "module/Application/src",
+            "Utils": "module/Utils/src"
         }
     }
 }

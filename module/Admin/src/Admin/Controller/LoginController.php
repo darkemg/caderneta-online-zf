@@ -16,7 +16,6 @@ class LoginController extends AbstractActionController {
 		$this->inicializarControleCss();
 		$this->inicializarControleJs();
 		$this->controleCss
-			->setComportamentoPadrao(ControleCss::COMPORTAMENTO_PADRAO_DEV)
 			->adicionarCss(new CssRemoto('//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'))
 			->adicionarCss(new CssRemoto('//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext'))
 			->adicionarCss(new Css(getcwd() . '/public/skins/janux/css/bootstrap.min.css'))
@@ -25,7 +24,6 @@ class LoginController extends AbstractActionController {
 			->adicionarCss(new Css(getcwd() . '/public/skins/janux/css/style-responsive.css'))
 			->adicionarCss(new Css(getcwd() . '/public/css/admin/login.css', true, false));
 		$this->controleJsBody
-			->setComportamentoPadrao(ControleJavascript::COMPORTAMENTO_PADRAO_DEV)
 			->adicionarJs(new Javascript(getcwd() . '/public/skins/janux/js/jquery-1.9.1.min.js'))
 			->adicionarJs(new Javascript(getcwd() . '/public/skins/janux/js/jquery-migrate-1.0.0.min.js'))
 			->adicionarJs(new Javascript(getcwd() . '/public/skins/janux/js/jquery-ui-1.10.0.custom.min.js'))
@@ -65,6 +63,7 @@ class LoginController extends AbstractActionController {
 		$view = new ViewModel();
 		$view->css = $this->controleCss->gerarCodigoInclusao();
 		$view->jsBody = $this->controleJsBody->gerarCodigoInclusao();
+		$view->controleCss = $this->controleCss;
 		return $view;
 	}
 	
@@ -114,6 +113,15 @@ class LoginController extends AbstractActionController {
 	}
 	
 	public function solicitarSenhaAction() {
-		
+		// Configura a ViewModel para retornar um JSON para esta ação
+		$acceptCriteria = [
+			'Zend\View\Model\JsonModel' => [
+				'application/json'
+			]
+		];
+		$viewModel = $this->acceptableViewModelSelector($acceptCriteria);
+		Json::$useBuiltinEncoderDecoder = true;
+		$retorno = [];
+		return $viewModel->setVariables($retorno);
 	}
 }

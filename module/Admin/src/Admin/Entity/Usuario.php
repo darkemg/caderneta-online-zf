@@ -1,30 +1,40 @@
 <?php
 /**
- * Modelo representando um usuário do aplicativo Admin.
+ * Classe de entidade representando um usuário do aplicativo Admin.
  * 
  * @author Darke M. Goulart <darkemg@users.noreply.github.com>
  * @package Admin/Entity
  */
 namespace Admin\Entity;
-/** @Entity @Table(name="admin_usuario") */
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Utils\Doctrine\Ativo;
+use Utils\Doctrine\Id;
+use Utils\Doctrine\SoftDeletable;
+use Utils\Doctrine\Timestampable;
+/** 
+ * @ORM\Entity 
+ * @ORM\Table(
+ * 		name="admin_usuario",
+ * 		indexes={
+ * 			@ORM\Index(name="admin_usuario_index1", columns={"username", "senha", "excluido"}),
+ * 			@ORM\Index(name="admin_usuario_index2", columns={"excluido"})
+ * 		}
+ * )
+ * @Gedmo\SoftDeleteable(fieldName="excluido", timeAware=false)
+ */
 class Usuario {
 	
-	/**
-	 * Identificador do registro no banco de dados.
-	 * 
-	 * @access private
-	 * @var int
-	 */
-	/** @Id @Column(type="integer") @GeneratedValue */
-	private $id;
+	use Id, Timestampable, Ativo, SoftDeletable;
 	
 	/**
 	 * Nome do usuário.
 	 * 
 	 * @access private
 	 * @var string
+	 * 
+	 * @ORM\Column(type="string")
 	 */
-	/** @Column(type="string") **/
 	private $nome;
 	
 	/**
@@ -34,61 +44,108 @@ class Usuario {
 	 * 
 	 * @access private
 	 * @var string
+	 * 
+	 * @ORM\Column(type="string", nullable=true) 
 	 */
-	/** @Column(type="string", nullable="true") **/
 	private $apelido;
-	/** @Column(type="string") **/
+	
+	/** 
+	 * @ORM\Column(type="string") 
+	 */
 	private $username;
-	/** @Column(type="string") **/
+	
+	/** 
+	 * @ORM\Column(type="string") 
+	 */
 	private $senha;
-	/** @Column(type="datetime", name="data_nascimento", nullable="true") **/
+	
+	/** 
+	 * @ORM\Column(type="datetime", name="data_nascimento", nullable=true) 
+	 */
 	private $dataNascimento;
-	/** @Column(type="datetime", name="data_criacao") **/
-	private $dataCriacao;
-	/** @Column(type="datetime", name="data_ultimo_login", nullable="true") **/
+	
+	/** 
+	 * @ORM\Column(type="datetime", name="data_ultimo_login", nullable=true) 
+	 */
 	private $dataUltimoLogin;
-	/** @Column(type="datetime", name="data_expira_senha", nullable="true) **/
+	
+	/** 
+	 * @ORM\Column(type="datetime", name="data_expira_senha", nullable=true) 
+	 */
 	private $dataExpiraSenha;
-	/** @Column(type="boolean") **/
-	private $ativo;
 	
 	/**
-	 * Método getter do identificador do registro no banco de dados.
-	 * 
+	 * Método getter do nome do usuário.
+	 *
 	 * @access public
-	 * @return int O identificador do registro no banco de dados.
+	 * @return string O nome do usuário.
 	 */
-	public function getId() : int {
-		return $this->id;
-	}
-	
 	public function getNome() : string {
 		return $this->nome;
 	}
 	
+	/**
+	 * Método setter do nome do usuário.
+	 * 
+	 * @access public
+	 * @param string $nome O nome do usuário.
+	 * @return \Admin\Entity Instância do próprio objeto para encadeamento.
+	 */
 	public function setNome(string $nome) : self {
 		$this->nome = $nome;
 		return $this;
 	}
 	
+	/**
+	 * Método getter do apelido (ou nome de exibição) do usuário.
+	 *
+	 * @access public
+	 * @return string O apelido (nome de exibição) do usuário.
+	 */
 	public function getApelido() : string {
 		return $this->apelido;
 	}
 	
+	/**
+	 * Método setter do apelido (ou nome de exibição) do usuário.
+	 *
+	 * @access public
+	 * @param string O apelido (nome de exibição) do usuário.
+	 * @return \Admin\Entity Instância do próprio objeto para encadeamento.
+	 */
 	public function setApelido(string $apelido) : self {
 		$this->apelido = $apelido;
 		return $this;
 	}
 	
+	/**
+	 * Método getter do username do usuário.
+	 *
+	 * @access public
+	 * @return string O username do usuário.
+	 */
 	public function getUsername() : string {
 		return $this->username;
 	}
 	
+	/**
+	 * Método setter do username do usuário.
+	 *
+	 * @access public
+	 * @param string O username do usuário.
+	 * @return \Admin\Entity Instância do próprio objeto para encadeamento.
+	 */
 	public function setUsername(string $username) : self {
 		$this->username = $username;
 		return $this;
 	}
 	
+	/**
+	 * Método getter da senha do usuário.
+	 * 
+	 * @access public
+	 * @return string A senha do usuário.
+	 */
 	public function getSenha() : string {
 		return $this->senha;
 	}
@@ -102,34 +159,21 @@ class Usuario {
 		return $this->dataNascimento;
 	}
 	
-	public function setDataNascimento(\DateTime $dataNascimento) : self {
+	public function setDataNascimento(\DateTime $dataNascimento = null) : self {
 		$this->dataNascimento = $dataNascimento;
 		return $this;
 	}
 	
-	public function getDataCriacao() : \DateTime {
-		return $this->dataCriacao;
-	}
-	
-	public function getDataUltimoLogin() : \DateTime {
+	public function getDataUltimoLogin() {
 		return $this->dataUltimoLogin;
 	}
 	
-	public function getDataExpiraSenha() : \DateTime {
+	public function getDataExpiraSenha() {
 		return $this->dataExpiraSenha;
 	}
 	
-	public function setDataExpiraSenha(\DateTime $dataExpiraSenha) : self {
+	public function setDataExpiraSenha(\DateTime $dataExpiraSenha = null) : self {
 		$this->dataExpiraSenha = $dataExpiraSenha;
-		return $this;
-	}
-	
-	public function getAtivo() : bool {
-		return $this->ativo;
-	}
-	
-	public function setAtivo(bool $ativo) : self {
-		$this->ativo;
 		return $this;
 	}
 	
