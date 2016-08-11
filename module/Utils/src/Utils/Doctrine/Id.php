@@ -11,8 +11,11 @@
  * @package Utils\Doctrine
  */
 namespace Utils\Doctrine;
+
 use Doctrine\ORM\Mapping as ORM;
-trait Id {
+
+trait Id
+{
 	
 	/**
 	 * Identificador do registro no banco de dados.
@@ -32,7 +35,8 @@ trait Id {
 	 * @access public
 	 * @return int O identificador do registro no banco de dados.
 	 */
-	public function getId() : int {
+	public function getId() : int
+	{
 		return $this->id;
 	} 
 }

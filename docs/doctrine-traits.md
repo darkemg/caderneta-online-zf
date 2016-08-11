@@ -1,4 +1,4 @@
-Traits para Doctrine Annotations
+TRAITS PARA DOCTRINE ANNOTATIONS
 ================================
 Estendendo o modelo introduzido no pacote `Gedmo\DoctrineExtensions` 
 (<https://github.com/Atlantic18/DoctrineExtensions>), os traits definidos no pacote `Utils\Doctrine` configuram 
@@ -20,6 +20,7 @@ Os traits definem automaticamente os campos, anotações e métodos de acesso pa
 comportamento que definem. Basta incluí-los normalmente ao definir uma classe de entidade do Doctrine:
 
     namespace Aplicacao\Entity
+    
     use Doctrine\ORM\Mapping as ORM;
     use Gedmo\Mapping\Annotation as Gedmo;
     use Utils\Doctrine\Id;       // Implementa o campo de chave primária auto-incremento
@@ -39,7 +40,8 @@ comportamento que definem. Basta incluí-los normalmente ao definir uma classe d
      * )
      * @Gedmo\SoftDeleteable(fieldName="excluido", timeAware=false)
      */
-    class Entidade {
+    class Entidade 
+    {
     
         // Automaticamente inclui os campos id (PK), ativo e excluido
         use Id, Ativo, SoftDeletable

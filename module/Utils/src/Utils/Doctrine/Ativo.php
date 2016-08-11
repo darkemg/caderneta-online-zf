@@ -10,8 +10,11 @@
  * @package Utils\Doctrine
  */
 namespace Utils\Doctrine;
+
 use Doctrine\ORM\Mapping as ORM;
-trait Ativo {
+
+trait Ativo
+{
 	
 	/**
 	 * Valor do status de ativo da entidade.
@@ -29,7 +32,8 @@ trait Ativo {
 	 * @access public
 	 * @return boolean O status da entidade.
 	 */
-	public function getAtivo() : bool {
+	public function getAtivo() : bool
+	{
 		return $this->ativo;
 	}
 	
@@ -40,7 +44,8 @@ trait Ativo {
 	 * @param string $nome O nome do usuário.
 	 * @return \Admin\Entity Instância do próprio objeto para encadeamento.
 	 */
-	public function setAtivo(bool $ativo) : self {
+	public function setAtivo(bool $ativo) : self
+	{
 		$this->ativo;
 		return $this;
 	}

@@ -1,20 +1,27 @@
 <?php
 namespace Admin\Controller;
+
+use Doctrine\ORM\EntityManagerInterface as DoctrineEntityManagerInterface;
 use Numenor\Html\Css;
 use Numenor\Html\CssRemoto;
 use Numenor\Html\Javascript;
 use Numenor\Html\JavascriptRemoto;
-use Numenor\Html\ControleJavascript;
-use Numenor\Html\ControleCss;
 use Zend\Http\Response;
 use Zend\Json\Json;
 use Zend\View\Model\ViewModel;
 
-class LoginController extends AbstractActionController {
+class LoginController extends AbstractActionController
+{
+	private $entityManager;
 	
-	public function loginAction() {
-		$this->inicializarControleCss();
-		$this->inicializarControleJs();
+	public function __construct(
+		DoctrineEntityManagerInterface $entityManager
+	) {
+		$this->entityManager = $entityManager;
+	}
+	
+	public function loginAction()
+	{
 		$this->controleCss
 			->adicionarCss(new CssRemoto('//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'))
 			->adicionarCss(new CssRemoto('//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext'))
@@ -56,7 +63,7 @@ class LoginController extends AbstractActionController {
 			->adicionarJs(new Javascript(getcwd() . '/public/skins/janux/js/jquery.sparkline.min.js'))
 			->adicionarJs(new Javascript(getcwd() . '/public/skins/janux/js/counter.js'))
 			->adicionarJs(new Javascript(getcwd() . '/public/skins/janux/js/retina.js'))
-			->adicionarJs(new Javascript(getcwd() . '/public/skins/janux/js/custom.js'))		
+			->adicionarJs(new Javascript(getcwd() . '/public/skins/janux/js/custom.js'))
 			->adicionarJs(new Javascript(getcwd() . '/public/js/caderneta-online.js'))
 			->adicionarJs(new Javascript(getcwd() . '/public/js/admin/admin.js'))
 			->adicionarJs(new Javascript(getcwd() . '/public/js/admin/login.js'));
@@ -112,7 +119,9 @@ class LoginController extends AbstractActionController {
 		return $viewModel->setVariables($retorno);
 	}
 	
-	public function solicitarSenhaAction() {
+	public function solicitarSenhaAction()
+	{
+		$retorno = [];
 		// Configura a ViewModel para retornar um JSON para esta ação
 		$acceptCriteria = [
 			'Zend\View\Model\JsonModel' => [
@@ -121,7 +130,6 @@ class LoginController extends AbstractActionController {
 		];
 		$viewModel = $this->acceptableViewModelSelector($acceptCriteria);
 		Json::$useBuiltinEncoderDecoder = true;
-		$retorno = [];
 		return $viewModel->setVariables($retorno);
 	}
 }

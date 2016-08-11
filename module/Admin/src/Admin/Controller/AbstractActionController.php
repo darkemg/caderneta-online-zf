@@ -1,22 +1,63 @@
 <?php
+/**
+ * Controladora genérica abstrata para o módulo Admin.
+ * 
+ * @author Darke M. Goulart <darkemg@users.noreply.github.com>
+ * @package Admin/Controller
+ */
 namespace Admin\Controller;
-use MatthiasMullie\Minify\CSS as MinificadorCss;
-use MatthiasMullie\Minify\JS as MinificadorJs;
+
 use Numenor\Html\ControleCss;
 use Numenor\Html\ControleJavascript;
-use Numenor\Html\ConversorCaminho;
-use Numenor\Php\ArrayWrapper;
-use Numenor\Php\StringWrapper;
 use Utils\Configuracao\ConfiguracaoInterface;
+use Utils\Configuracao\ControleCssInterface;
+use Utils\Configuracao\ControleJavascriptInterface;
 use Zend\Mvc\Controller\AbstractActionController as ZendAbstractActionController;
-abstract class AbstractActionController extends ZendAbstractActionController implements ConfiguracaoInterface {
+
+abstract class AbstractActionController extends ZendAbstractActionController implements 
+	ConfiguracaoInterface,
+	ControleCssInterface,
+	ControleJavascriptInterface
 	
+{
+	
+	/**
+	 * Array de configuração do módulo.
+	 * 
+	 * @access protected
+	 * @var array
+	 */
 	protected $configuracao;
+	/**
+	 * Controlador dos assets CSS utilizados nas ações da controladora.
+	 * 
+	 * @accesss protected
+	 * @var \Numenor\Html\ControleCss
+	 */
 	protected $controleCss;
+	/**
+	 * Controlador dos assets Javascript incluídos no cabeçalho das ações da controladora.
+	 *
+	 * @accesss protected
+	 * @var \Numenor\Html\ControleJavascript
+	 */
 	protected $controleJsHead;
+	/**
+	 * Controlador dos assets Javascript incluídos no final do corpo das ações da controladora.
+	 *
+	 * @accesss protected
+	 * @var \Numenor\Html\ControleJavascript
+	 */
 	protected $controleJsBody;
 	
-	protected function getBaseUrl() {
+	/**
+	 * Retorna a URL base da requisição feita á controladora.
+	 * 
+	 * @access protected
+	 * @return string
+	 */
+	protected function getBaseUrl() : string
+	{
 		$uri = $this->getRequest()->getUri();
 		$scheme = $uri->getScheme();
 		$host = $uri->getHost();
@@ -28,44 +69,35 @@ abstract class AbstractActionController extends ZendAbstractActionController imp
 		return $baseUrl;
 	}
 	
-	protected function inicializarControleCss() {
-		$arrayWrapper = new ArrayWrapper();
-		$stringWrapper = new StringWrapper();
-		$minificador = new MinificadorCss();
-		$conversor = new ConversorCaminho();
-		$this->controleCss = new ControleCss(
-			$arrayWrapper,
-			$stringWrapper,
-			getcwd() . '/public/css/admin/min/',
-			$this->getBaseUrl() . '/css/admin/min/');
-		$this->controleCss
-			->setMinificadorCss($minificador)
-			->setConversorCaminho($conversor)
-			// Configura o comportamento padrão do controlador de CSS, de acordo com a configuração do ambiente
-			->setComportamentoPadrao($this->configuracao['numenor']['html']['comportamento_padrao']);
-	}
-	
-	protected function inicializarControleJs() {
-		$arrayWrapper = new ArrayWrapper();
-		$stringWrapper = new StringWrapper();
-		$minificador = new MinificadorJs();
-		// Define o controlador de inclusão de scripts do cabeçalho (dentro da tag <HEAD> do documento HTML)
-		$this->controleJsHead = new ControleJavascript(
-			$arrayWrapper,
-			$stringWrapper,
-			getcwd() . '/public/js/admin/min/',
-			$this->getBaseUrl() . '/js/admin/min/');
-		$this->controleJsHead
-			->setMinificadorJs($minificador)
-			// Configura o comportamento padrão do controlador de Javascript, de acordo com a configuração do ambiente
-			->setComportamentoPadrao($this->configuracao['numenor']['html']['comportamento_padrao']);
-		// Define o controlador de inclusão de scripts do corpo (incluídos no final da tag <BODY> do documento HTML).
-		// Por simplicidade, apenas clona a instância definida para o cabeçalho, uma vez que as configurações são as
-		// mesmas
-		$this->controleJsBody = clone $this->controleJsHead;
-	}
-	
-	public function setConfiguracao(array $configuracao) {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setConfiguracao(array $configuracao)
+	{
 		$this->configuracao = $configuracao;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setControleCss(ControleCss $controleCss)
+	{
+		$this->controleCss = $controleCss;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setControleJsHead(ControleJavascript $controleJsHead)
+	{
+		$this->controleJsHead = $controleJsHead;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setControleJsBody(ControleJavascript $controleJsBody)
+	{
+		$this->controleJsBody = $controleJsBody;
 	}
 }

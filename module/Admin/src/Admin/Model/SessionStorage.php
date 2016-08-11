@@ -7,7 +7,9 @@
  * @package Admin/Model
  */
 namespace Admin\Model;
+
 use Doctrine\ORM\Mapping as ORM;
+
 /** 
  * @ORM\Entity 
  * @ORM\Table(
@@ -18,7 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
  * 		}
  * )
  */
-class SessionStorage {
+class SessionStorage 
+{
 	
 	/**
 	 * Identificador da Session (PHPSESSID).
@@ -57,47 +60,57 @@ class SessionStorage {
 	 */
 	private $data;
 	
-	public function getId() : string {
+	public function getId() : string
+	{
 		return $this->id;
 	}
 	
-	public function setId(string $id) : self {
+	public function setId(string $id) : self
+	{
 		$this->id = $id;
 		return $this;
 	}
 	
-	public function getName() : string {
+	public function getName() : string
+	{
 		return $this->name;
 	}
 	
-	public function setName(string $name) : self {
+	public function setName(string $name) : self
+	{
 		$this->name = $name;
 		return $this;
 	}
 	
-	public function getModified() {
+	public function getModified()
+	{
 		return $this->modified;
 	}
 	
-	public function setModified(int $modified = null) : self {
+	public function setModified(int $modified = null) : self
+	{
 		$this->modified = $modified;
 		return $this;
 	}
 	
-	public function getLifetime() {
+	public function getLifetime()
+	{
 		return $this->lifetime;
 	}
 	
-	public function setLifetime(int $lifetime = null) : self {
+	public function setLifetime(int $lifetime = null) : self
+	{
 		$this->lifetime = $lifetime;
 		return $this;
 	}
 	
-	public function getData() {
+	public function getData()
+	{
 		return $this->data;
 	}
 	
-	public function setData(string $data = null) : self {
+	public function setData(string $data = null) : self
+	{
 		$this->data = $data;
 		return $this;
 	}

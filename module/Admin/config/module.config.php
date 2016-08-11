@@ -1,10 +1,20 @@
 <?php
 namespace Admin;
 return [
-	'controllers' => [
+	'service_manager' => [
 		'invokables' => [
-			'Admin\Controller\Admin' => Controller\AdminController::class,
-			'Admin\Controller\Login' => Controller\LoginController::class
+			
+		],
+		'factories' => [
+			 
+		]
+	],
+	'controllers' => [
+		'factories' => [
+			'Admin\Controller\Login' => Factory\LoginController::class
+		],
+		'invokables' => [
+			'Admin\Controller\Admin' => Controller\AdminController::class
 		]
 	],
 	'router' => [

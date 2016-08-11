@@ -12,7 +12,6 @@ CADERNETAONLINE.Admin.Login = (function () {
                 removeClass('input-prepend-focus');
         },
         login = function (form) {
-            console.log($(form).attr('method'));
             $.ajax({
                 accepts: {
                     json: 'application/json'

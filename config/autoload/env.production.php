@@ -11,9 +11,9 @@ return [
 		]
 	],
 	'zfctwig' => [
-    	'environment_options' => [
-    		'debug' => false,
-       		'cache' => __DIR__ . '/../../data/cache/templates'
-    	]
+		'environment_options' => [
+			'debug' => false,
+			'cache' => __DIR__ . '/../../data/cache/templates'
+		]
 	]
 ];

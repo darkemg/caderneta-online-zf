@@ -85,5 +85,16 @@ return [
     // ),
    // Initial configuration with which to seed the ServiceManager.
    // Should be compatible with Zend\ServiceManager\Config.
-   // 'service_manager' => array(),
+   'service_manager' => [
+   		// Serviços invocáveis (instanciados sem parâmetros)
+   		'invokables' => [
+   			'ArrayWrapper' => Numenor\Php\ArrayWrapper::class,
+   			'StringWrapper' => Numenor\Php\StringWrapper::class,
+   			'ConversorCaminho' => Numenor\Html\ConversorCaminho::class
+   		],
+   		// Serviços que precisam ser criados através de um factory
+   		'factories' => [
+   			
+   		]
+   ],
 ];

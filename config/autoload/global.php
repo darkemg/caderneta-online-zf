@@ -12,8 +12,8 @@
  */
 return [
 	'zfctwig' => [
-    	'environment_options' => [
-       		'cache' => __DIR__ . '/../../data/cache/templates',
-    	]
+		'environment_options' => [
+			'cache' => __DIR__ . '/../../data/cache/templates',
+		]
 	]
 ];

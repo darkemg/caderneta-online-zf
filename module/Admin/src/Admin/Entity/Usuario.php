@@ -6,12 +6,14 @@
  * @package Admin/Entity
  */
 namespace Admin\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Utils\Doctrine\Ativo;
 use Utils\Doctrine\Id;
 use Utils\Doctrine\SoftDeleteable;
 use Utils\Doctrine\Timestampable;
+
 /** 
  * @ORM\Entity 
  * @ORM\Table(
@@ -23,9 +25,13 @@ use Utils\Doctrine\Timestampable;
  * )
  * @Gedmo\SoftDeleteable(fieldName="excluido", timeAware=false)
  */
-class Usuario {
+class Usuario
+{
 	
-	use Id, Timestampable, Ativo, SoftDeleteableable;
+	use Id;
+	use Timestampable;
+	use Ativo;
+	use SoftDeleteable;
 	
 	/**
 	 * Nome do usuário.
@@ -80,7 +86,8 @@ class Usuario {
 	 * @access public
 	 * @return string O nome do usuário.
 	 */
-	public function getNome() : string {
+	public function getNome() : string 
+	{
 		return $this->nome;
 	}
 	
@@ -91,7 +98,8 @@ class Usuario {
 	 * @param string $nome O nome do usuário.
 	 * @return \Admin\Entity Instância do próprio objeto para encadeamento.
 	 */
-	public function setNome(string $nome) : self {
+	public function setNome(string $nome) : self 
+	{
 		$this->nome = $nome;
 		return $this;
 	}
@@ -102,7 +110,8 @@ class Usuario {
 	 * @access public
 	 * @return string O apelido (nome de exibição) do usuário.
 	 */
-	public function getApelido() : string {
+	public function getApelido() : string 
+	{
 		return $this->apelido;
 	}
 	
@@ -113,7 +122,8 @@ class Usuario {
 	 * @param string O apelido (nome de exibição) do usuário.
 	 * @return \Admin\Entity Instância do próprio objeto para encadeamento.
 	 */
-	public function setApelido(string $apelido) : self {
+	public function setApelido(string $apelido) : self 
+	{
 		$this->apelido = $apelido;
 		return $this;
 	}
@@ -124,7 +134,8 @@ class Usuario {
 	 * @access public
 	 * @return string O username do usuário.
 	 */
-	public function getUsername() : string {
+	public function getUsername() : string 
+	{
 		return $this->username;
 	}
 	
@@ -135,7 +146,8 @@ class Usuario {
 	 * @param string O username do usuário.
 	 * @return \Admin\Entity Instância do próprio objeto para encadeamento.
 	 */
-	public function setUsername(string $username) : self {
+	public function setUsername(string $username) : self 
+	{
 		$this->username = $username;
 		return $this;
 	}
@@ -146,39 +158,47 @@ class Usuario {
 	 * @access public
 	 * @return string A senha do usuário.
 	 */
-	public function getSenha() : string {
+	public function getSenha() : string 
+	{
 		return $this->senha;
 	}
 	
-	public function setSenha(string $senha) : self {
+	public function setSenha(string $senha) : self 
+	{
 		$this->senha = $senha;
 		return $this;
 	}
 	
-	public function getDataNascimento() : \DateTime {
+	public function getDataNascimento() : \DateTime 
+	{
 		return $this->dataNascimento;
 	}
 	
-	public function setDataNascimento(\DateTime $dataNascimento = null) : self {
+	public function setDataNascimento(\DateTime $dataNascimento = null) : self 
+	{
 		$this->dataNascimento = $dataNascimento;
 		return $this;
 	}
 	
-	public function getDataUltimoLogin() {
+	public function getDataUltimoLogin() 
+	{
 		return $this->dataUltimoLogin;
 	}
 	
-	public function getDataExpiraSenha() {
+	public function getDataExpiraSenha() 
+	{
 		return $this->dataExpiraSenha;
 	}
 	
-	public function setDataExpiraSenha(\DateTime $dataExpiraSenha = null) : self {
+	public function setDataExpiraSenha(\DateTime $dataExpiraSenha = null) : self 
+	{
 		$this->dataExpiraSenha = $dataExpiraSenha;
 		return $this;
 	}
 	
-	public static function login($nomeUsuario, $senha) {
-		$query = $em->createQuery("SELECT u FROM Admin\Model\Usuario WHERE username = ?1 AND excluido = 0");
+	public static function login($nomeUsuario, $senha) 
+	{
+		$query = $em->createQuery("SELECT u FROM Admin\Entity\Usuario WHERE username = ?1 AND excluido = 0");
 		$query->setParameter(1, $nomeUsuario);
 		$usuario = $query->getResult();
 	}
