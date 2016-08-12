@@ -9,16 +9,9 @@ namespace Admin\Controller;
 
 use Numenor\Html\ControleCss;
 use Numenor\Html\ControleJavascript;
-use Utils\Configuracao\ConfiguracaoInterface;
-use Utils\Configuracao\ControleCssInterface;
-use Utils\Configuracao\ControleJavascriptInterface;
 use Zend\Mvc\Controller\AbstractActionController as ZendAbstractActionController;
 
-abstract class AbstractActionController extends ZendAbstractActionController implements 
-	ConfiguracaoInterface,
-	ControleCssInterface,
-	ControleJavascriptInterface
-	
+abstract class AbstractActionController extends ZendAbstractActionController
 {
 	
 	/**
@@ -51,6 +44,29 @@ abstract class AbstractActionController extends ZendAbstractActionController imp
 	protected $controleJsBody;
 	
 	/**
+	 * Método construtor da classe.
+	 * 
+	 * @access public
+	 * @param array $configuracao O array de configuração da aplicação.
+	 * @param \Numenor\Html\ControleCss $controleCss Controlador de inclusão de arquivos CSS.
+	 * @param \Numenor\Html\ControleJavascript $controleJsHead Controlador de inclusão de arquivos Javascript no
+	 * cabeçalho do documento.
+	 * @param \Numenor\Html\ControleJavascript $controleJsBody Controlador de inclusão de arquivos Javascript no final do
+	 * corpo do documento.
+	 */
+	public function __construct(
+		array $configuracao,
+		ControleCss $controleCss,
+		ControleJavascript $controleJsHead,
+		ControleJavascript $controleJsBody
+	) {
+		$this->configuracao = $configuracao;
+		$this->controleCss = $controleCss;
+		$this->controleJsHead = $controleJsHead;
+		$this->controleJsBody = $controleJsBody;
+	}
+	
+	/**
 	 * Retorna a URL base da requisição feita á controladora.
 	 * 
 	 * @access protected
@@ -67,37 +83,5 @@ abstract class AbstractActionController extends ZendAbstractActionController imp
 			$baseUrl .= ':' . $port;
 		}
 		return $baseUrl;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setConfiguracao(array $configuracao)
-	{
-		$this->configuracao = $configuracao;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setControleCss(ControleCss $controleCss)
-	{
-		$this->controleCss = $controleCss;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setControleJsHead(ControleJavascript $controleJsHead)
-	{
-		$this->controleJsHead = $controleJsHead;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setControleJsBody(ControleJavascript $controleJsBody)
-	{
-		$this->controleJsBody = $controleJsBody;
 	}
 }

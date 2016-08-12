@@ -16,6 +16,7 @@
         "san/san-session-toolbar": "0.*",
         "snapshotpl/zf-snap-event-debugger": "1.*",
         "jhuet/zdt-logger-module": "dev-master"
+        "phpdocumentor/phpdocumentor": "2.*"
     },
     "autoload": {
         "psr-0": {

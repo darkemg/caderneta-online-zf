@@ -7,12 +7,8 @@
  */
 namespace Admin;
 
-use Utils\Configuracao\ConfiguracaoInterface;
-use Utils\Configuracao\ControleCssInterface;
-use Utils\Configuracao\ControleJavascriptInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Utils\Factory\ControleJavascript;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
@@ -49,27 +45,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 	public function getControllerConfig() : array
 	{
 		return [
-			'initializers' => [
-				function ($instance, $serviceManager) {
-					// injeta o array de configuração da aplicação
-					if ($instance instanceof ConfiguracaoInterface) {
-						$locator = $serviceManager->getServiceLocator();
-						$configuracao  = $locator->get('Config');
-						$instance->setConfiguracao($configuracao);
-					}
-					if ($instance instanceof ControleCssInterface) {
-						$locator = $serviceManager->getServiceLocator();
-						$controleCss = $locator->get('Numenor\Html\ControleCss');
-						$instance->setControleCss($controleCss);
-					}
-					if ($instance instanceof ControleJavascriptInterface) {
-						$locator = $serviceManager->getServiceLocator();
-						$controleJavascript = $locator->get('Numenor\Html\ControleJavascript');
-						$instance->setControleJsHead(clone $controleJavascript);
-						$instance->setControleJsBody(clone $controleJavascript);
-					}
-				}
-			]
+			'initializers' => []
 		];
 	}
 }

@@ -7,13 +7,14 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ControleCss extends ControleAsset
 {
 	
-	public function createService(ServiceLocatorInterface $serviceLocator)
+	public function createService(ServiceLocatorInterface $serviceLocator) : Html\ControleCss
 	{
-		$arrayWrapper = $serviceLocator->get('ArrayWrapper');
-		$stringWrapper = $serviceLocator->get('StringWrapper');
-		$configuracao = $serviceLocator->get('Config');
-		$conversorCaminho = $serviceLocator->get('ConversorCaminho');
-		$request = $serviceLocator->get('Request');
+		$parentLocator = $serviceLocator->getServiceLocator();
+		$arrayWrapper = $parentLocator->get('ArrayWrapper');
+		$stringWrapper = $parentLocator->get('StringWrapper');
+		$configuracao = $parentLocator->get('Config');
+		$conversorCaminho = $parentLocator->get('ConversorCaminho');
+		$request = $parentLocator->get('Request');
 		$controleCss = new Html\ControleCss(
 			$arrayWrapper,
 			$stringWrapper,

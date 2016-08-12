@@ -7,12 +7,13 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ControleJavascript extends ControleAsset
 {
 	
-	public function createService(ServiceLocatorInterface $serviceLocator)
+	public function createService(ServiceLocatorInterface $serviceLocator) : Html\ControleJavascript
 	{
-		$arrayWrapper = $serviceLocator->get('ArrayWrapper');
-		$stringWrapper = $serviceLocator->get('StringWrapper');
-		$configuracao = $serviceLocator->get('Config');
-		$request = $serviceLocator->get('Request');
+		$parentLocator = $serviceLocator->getServiceLocator();
+		$arrayWrapper = $parentLocator->get('ArrayWrapper');
+		$stringWrapper = $parentLocator->get('StringWrapper');
+		$configuracao = $parentLocator->get('Config');
+		$request = $parentLocator->get('Request');
 		$controleJs = new Html\ControleJavascript(
 			$arrayWrapper,
 			$stringWrapper,

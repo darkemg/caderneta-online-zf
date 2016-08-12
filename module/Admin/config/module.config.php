@@ -2,12 +2,8 @@
 namespace Admin;
 return [
 	'service_manager' => [
-		'invokables' => [
-			
-		],
-		'factories' => [
-			 
-		]
+		'invokables' => [],
+		'factories' => []
 	],
 	'controllers' => [
 		'factories' => [
@@ -30,13 +26,14 @@ return [
 				],
 				'may_terminate' => true,
 				'child_routes' => [
-					'autenticar' => [
-						'type' => 'Zend\Mvc\Router\Http\Literal',
+					'default' => [
+						'type' => 'Zend\Mvc\Router\Http\Segment',
 						'options' => [
-							'route' => '/autenticar',
+							'route' => '/[:controller[/:action]/]',
 							'defaults' => [
-								'controller' => 'Admin\Controller\Login',
-								'action' => 'autenticar'
+								'__NAMESPACE__' => 'Admin\Controller',
+								'controller' => 'Login',
+								'action' => 'login'
 							]
 						]
 					],
@@ -50,6 +47,16 @@ return [
 							]
 						]
 					],
+					'autenticar' => [
+						'type' => 'Zend\Mvc\Router\Http\Literal',
+						'options' => [
+							'route' => '/autenticar',
+							'defaults' => [
+								'controller' => 'Admin\Controller\Login',
+								'action' => 'autenticar'
+							]
+						]
+					],
 					'login' => [
 						'type' => 'Zend\Mvc\Router\Http\Literal',
 						'options' => [
@@ -59,9 +66,9 @@ return [
 								'action' => 'login'
 							]
 						]
-					],
+					]
 				]
-			],
+			]
 		]	
 	],
 	'view_manager' => [

@@ -1,26 +1,55 @@
 <?php
+/**
+ * Controladora das requisições relacionadas ao login no módulo Admin.
+ * 
+ * @author Darke M. Goulart <darkemg@users.noreply.github.com>
+ * @package Admin/Controller
+ */
 namespace Admin\Controller;
 
 use Doctrine\ORM\EntityManagerInterface as DoctrineEntityManagerInterface;
+use Numenor\Html\ControleCss;
+use Numenor\Html\ControleJavascript;
 use Numenor\Html\Css;
 use Numenor\Html\CssRemoto;
 use Numenor\Html\Javascript;
-use Numenor\Html\JavascriptRemoto;
 use Zend\Http\Response;
 use Zend\Json\Json;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\ModelInterface;
 
 class LoginController extends AbstractActionController
 {
+	/**
+	 * Gerenciador de entidades de banco de dados do Doctrine.
+	 * 
+	 * @access private
+	 * @var \Docrtine\ORM\EntityManagerInterface
+	 */
 	private $entityManager;
 	
+	/**
+	 * {@inheritDoc}
+	 * @param DoctrineEntityManagerInterface $entityManager Gerenciador de entidades de banco de dados.
+	 */
 	public function __construct(
+		array $configuracao,
+		ControleCss $controleCss,
+		ControleJavascript $controleJsHead,
+		ControleJavascript $controleJsBody,
 		DoctrineEntityManagerInterface $entityManager
 	) {
+		parent::__construct($configuracao, $controleCss, $controleJsHead, $controleJsBody);
 		$this->entityManager = $entityManager;
 	}
 	
-	public function loginAction()
+	/**
+	 * Captura a ação de exibir a tela de login.
+	 * 
+	 * @access public
+	 * @return \Zend\View\Model\ViewModel O objeto de visualização da requisição (página HTML).
+	 */
+	public function loginAction() : ViewModel
 	{
 		$this->controleCss
 			->adicionarCss(new CssRemoto('//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'))
@@ -74,7 +103,14 @@ class LoginController extends AbstractActionController
 		return $view;
 	}
 	
-	public function autenticarAction() {
+	/**
+	 * Captura a ação de autenticação de um usuário.
+	 * 
+	 * @access public
+	 * @return \Zend\View\Model\ModelInterface O objeto de visualização da requisição (arquivo JSON).
+	 */
+	public function autenticarAction() : ModelInterface
+	{
 		// Configura a ViewModel para retornar um JSON para esta ação
 		$acceptCriteria = [
 			'Zend\View\Model\JsonModel' => [
@@ -114,12 +150,20 @@ class LoginController extends AbstractActionController
 					]
 				];
 			}
+		} else {
+			$retorno = [];
 		}
 		Json::$useBuiltinEncoderDecoder = true;
 		return $viewModel->setVariables($retorno);
 	}
 	
-	public function solicitarSenhaAction()
+	/**
+	 * Captura a ação de solicitação de recuperação de senha de um usuário.
+	 *
+	 * @access public
+	 * @return \Zend\View\Model\ModelInterface O objeto de visualização da requisição (arquivo JSON).
+	 */
+	public function solicitarSenhaAction() : ModelInterface
 	{
 		$retorno = [];
 		// Configura a ViewModel para retornar um JSON para esta ação
